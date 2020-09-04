@@ -29,5 +29,5 @@ def Home(request):
                     followingTweets.append(feach)
         followingTweets = sorted(followingTweets, key=lambda k: (k.timestamp))
         count_notif = Notification.objects.filter(at_person=request.user.id, read=False).count()
-        return render(request, 'home.html', {'followingTweets': followingTweets, 'count_notif': count_notif})
+        return render(request, 'home.html', {'followingTweets': followingTweets[::-1], 'count_notif': count_notif})
     return HttpResponseRedirect("/users/login/")

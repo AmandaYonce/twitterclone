@@ -12,7 +12,6 @@ def NewTweet(request):
         form = CreateTweetForm(request.POST)
         if form.is_valid():
             data = form.cleaned_data
-            
             author_inst = CustomUser.objects.filter(username=request.user.username).first()
             new_Tweet = Tweet.objects.create(
                 author=author_inst,
