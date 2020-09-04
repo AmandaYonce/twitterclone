@@ -19,7 +19,6 @@ def Home(request):
 
     myfollowers = CustomUser.objects.get(id=request.user.id).followers.all()
     for each in myfollowers:
-        followingTweets = Tweet.objects.filter(Q(author=request.user) | Q(author=each))
-    
-    print(followingTweets)
+        followingTweets = Tweet.objects.filter(Q(author=request.user) | Q(author=each)).order_by('-timestamp')
+
     return render(request, 'home.html', {'tweets': tweets, 'mytweets': mytweets, 'followingTweets': followingTweets})
