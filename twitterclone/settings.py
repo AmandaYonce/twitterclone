@@ -128,4 +128,4 @@ STATIC_URL = '/static/'
 AUTH_USER_MODEL = 'twitteruser.CustomUser'
 
 LOGIN_REDIRECT_URL = 'home'
-LOGOUT_REDIRECT_URL = 'home'
+LOGOUT_REDIRECT_URL = '/users/login/'

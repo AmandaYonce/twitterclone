@@ -3,17 +3,18 @@
 {% block title %}Home{% endblock %}
 
 {% block content %}
-{% if user.is_authenticated %}
   <p>Hi username: {{ user.username }}!</p>
   <p>Hi displayname: {{ user.display_name }}</p>
+  <p>Hi userId: {{user.id}}</p>
   <h1>{{user.last_login}}</h1>
   <p><a href="/newtweet/">Write a Tweet</a></p>
-  <p><a href="{% url 'logout' %}">logout</a></p>
+  <p><a href="/users/logout/">logout</a></p>
 
-  <a href="/notifications/">Notifications</a>
+  <a href="/notifications/">Notifications: {{count_notif}}</a>
 
 <div style=justify-content:center class='row'>
-  
+
+
 
 <h1>My Tweets and Tweets From People I am Following</h1>
 
@@ -31,12 +32,4 @@
   
   {% endfor %}
 
-
-
-
-{% else %}
-  <p>You are not logged in</p>
-  <a href="{% url 'login' %}">login</a> |
-  <a href="{% url 'signup' %}">signup</a>
-{% endif %}
 {% endblock %}
