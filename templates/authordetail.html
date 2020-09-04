@@ -5,7 +5,7 @@
 {% block content %}
 
   <p><a href="/newtweet/">Write a Tweet</a></p>
-  <p><a href="{% url 'logout' %}">logout</a></p>
+  <p><a href="/">Home</a></p>
 
   <h1>Author Detail</h1>
   <p># of Accounts I am Following: {{author.followers.all.count}}</p>
@@ -15,7 +15,7 @@
       
 
     <div style=margin:15px class='card card-body'>
-      <p>Username: {{author.username}}</p>
+      
       <h1>People following me:</h1>
       <ul>
       {% for each in author.following.all %}

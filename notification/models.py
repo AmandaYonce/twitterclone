@@ -2,7 +2,7 @@
 from django.db import models
 from twitteruser.models import CustomUser
 from tweet.models import Tweet
-from django.utils.timezone import now
+
 
 
 class Notification(models.Model):

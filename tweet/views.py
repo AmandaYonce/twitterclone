@@ -41,8 +41,9 @@ def TweetDetail(request, tweet_id):
 
 
 def AuthorDetail(request, author_id):
+    print(author_id)
     author = CustomUser.objects.filter(id=author_id).first()
-    count = Tweet.objects.filter(author=request.user).count
+    count = Tweet.objects.filter(author=author_id).count
     return render(request, 'authordetail.html', {"author": author, 'count': count})
 
 
