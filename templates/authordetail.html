@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+
+{% block title %}Author Detail{% endblock %}
+
+{% block content %}
+
+  <p><a href="/newtweet/">Write a Tweet</a></p>
+  <p><a href="{% url 'logout' %}">logout</a></p>
+
+  <h1>Author Detail</h1>
+  <p># of Accounts I am Following: {{author.followers.all.count}}</p>
+  <p># of Tweets I have written: {{count}}</p>
+  <div style=justify-content:center class='row'>
+
+      
+
+    <div style=margin:15px class='card card-body'>
+      <p>Username: {{author.username}}</p>
+      <h1>People following me:</h1>
+      <ul>
+      {% for each in author.following.all %}
+      <li>{{each}}</li>
+
+      {% endfor %}
+    </ul>
+
+    <h1>People I am Following:</h1>
+      {% for each in author.followers.all %}
+        <li>{{each}}</li>
+      {% endfor %}
+    </div>
+
+
+</div>
+{% endblock %}
