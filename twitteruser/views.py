@@ -29,7 +29,6 @@ def Home(request):
         if len(ftweets) > 0:
             for feach in ftweets:
                 followingTweets.append(feach)
-    print(followingTweets)
     followingTweets = sorted(followingTweets, key=lambda k: (k.timestamp))
     count_notif = Notification.objects.filter(at_person=request.user.id, read=False).count()
     return render(request, 'home.html', {'followingTweets': followingTweets, 'count_notif': count_notif})

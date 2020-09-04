@@ -7,13 +7,12 @@
   <p>Hi displayname: {{ user.display_name }}</p>
   <p>Hi userId: {{user.id}}</p>
   <h1>{{user.last_login}}</h1>
-  <p><a href="/newtweet/">Write a Tweet</a></p>
-  <p><a href="/users/logout/">logout</a></p>
+  <button onclick="window.location.href='/newtweet/'" type="button" class="btn btn-success">New Tweet</button>
+  <button onclick="window.location.href='/users/logout/'" type="button" class="btn btn-primary">Logout</button>
 
   <a href="/notifications/">Notifications: {{count_notif}}</a>
 
 <div style=justify-content:center class='row'>
-
 
 
 <h1>My Tweets and Tweets From People I am Following</h1>
@@ -21,15 +20,19 @@
   
 {% for tweet in followingTweets %}
 
-  <div style=margin:15px class='card card-body'>
+  <div style=max-width:350px;margin:15px class='card card-body'>
       <p><a href="/tweetdetail/{{tweet.id}}/">{{tweet.tweet}}</a></p>
       <p><a href="/authordetail/{{tweet.author.id}}/">{{tweet.author}}</a></p>
-      <a href="/followme/{{tweet.author.id}}/">Follow Me</a>
-      <a href="/unfollowme/{{tweet.author.id}}/">UnFollow Me</a>
+      <button onclick="window.location.href='/followme/{{tweet.author.id}}/'" type="button" class="btn btn-info">Follow Me</button>
+
+      <button onclick="window.location.href='/unfollowme/{{tweet.author.id}}/'" type="button" class="btn btn-danger">Unfollow Me</button>
+
       <p>{{tweet.timestamp}}</p>
 
   </div>
   
   {% endfor %}
-
+</div>
 {% endblock %}
+
+<button onclick="window.location.href='/delete/{{bro.id}}'" type="button" class="btn btn-danger" >Delete</button>

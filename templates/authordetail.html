@@ -4,8 +4,10 @@
 
 {% block content %}
 
-  <p><a href="/newtweet/">Write a Tweet</a></p>
-  <p><a href="/">Home</a></p>
+<button onclick="window.location.href='/newtweet/'" type="button" class="btn btn-success">New Tweet</button>
+<button onclick="window.location.href='/users/logout/'" type="button" class="btn btn-primary">Logout</button>
+<button onclick="window.location.href='/'" type="button" class="btn btn-danger">Home</button>
+
 
   <h1>Author Detail</h1>
   <p># of Accounts I am Following: {{author.followers.all.count}}</p>
