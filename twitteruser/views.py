@@ -13,12 +13,8 @@ class SignUpView(CreateView):
 
 
 def Home(request):
-    tweets = Tweet.objects.all()
-    mytweets = Tweet.objects.filter(author=request.user.id)
-
-
     myfollowers = CustomUser.objects.get(id=request.user.id).followers.all()
     for each in myfollowers:
         followingTweets = Tweet.objects.filter(Q(author=request.user) | Q(author=each)).order_by('-timestamp')
 
-    return render(request, 'home.html', {'tweets': tweets, 'mytweets': mytweets, 'followingTweets': followingTweets})
+    return render(request, 'home.html', { 'followingTweets': followingTweets})
