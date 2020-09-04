@@ -12,31 +12,16 @@
 
   <a href="/notifications/">Notifications</a>
 
-
-
-  <h1>All Tweets</h1>
-  <div style=justify-content:center class='row'>
-    
-  {% for tweet in tweets %}
-
-    <div style=margin:15px class='card card-body'>
-      <p><a href="/tweetdetail/{{tweet.id}}/">{{tweet.tweet}}</a></p>
-        <p><a href="/authordetail/{{tweet.author.id}}/">{{tweet.author}}</a></p>
-        <a class="button" href="/followme/{{tweet.author.id}}/">Follow Me</a
-        <p>{{tweet.timestamp}}</p>
-
-    </div>
-    {% endfor %}
-
-</div>
-
-<h1>My Tweets</h1>
 <div style=justify-content:center class='row'>
   
-{% for tweet in mytweets %}
+
+<h1>My Tweets and Tweets From People I am Following</h1>
+<div style=justify-content:center class='row'>
+  
+{% for tweet in followingTweets %}
 
   <div style=margin:15px class='card card-body'>
-      <p><a href="/tweet/{{tweet.id}}">{{tweet.description}}</a></p>
+      <p><a href="/tweet/{{tweet.id}}">{{tweet.tweet}}</a></p>
       <p><a href="/authordetail/{{tweet.author.id}}/">{{tweet.author}}</a></p>
       <a href="/followme/{{tweet.author.id}}/">Follow Me</a>
       <p>{{tweet.timestamp}}</p>
@@ -45,6 +30,24 @@
   {% endfor %}
 
 </div>
+<div>
+<h1>My Tweets </h1>
+<div style=justify-content:center class='row'>
+  
+{% for tweet in mytweets %}
+
+  <div style=margin:15px class='card card-body'>
+      <p><a href="/tweet/{{tweet.id}}">{{tweet.tweet}}</a></p>
+      <p><a href="/authordetail/{{tweet.author.id}}/">{{tweet.author}}</a></p>
+      <a href="/followme/{{tweet.author.id}}/">Follow Me</a>
+      <p>{{tweet.timestamp}}</p>
+
+  </div>
+  {% endfor %}
+
+</div>
+</div>
+
 
 {% else %}
   <p>You are not logged in</p>

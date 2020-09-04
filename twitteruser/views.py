@@ -3,7 +3,8 @@ from django.views.generic.edit import CreateView
 from .forms import CustomUserCreationForm
 from django.shortcuts import render
 from tweet.models import Tweet
-
+from .models import *
+from django.db.models import Q
 
 class SignUpView(CreateView):
     form_class = CustomUserCreationForm
@@ -14,4 +15,11 @@ class SignUpView(CreateView):
 def Home(request):
     tweets = Tweet.objects.all()
     mytweets = Tweet.objects.filter(author=request.user.id)
-    return render(request, 'home.html', {'tweets': tweets, 'mytweets': mytweets})
+
+
+    myfollowers = CustomUser.objects.get(id=request.user.id).followers.all()
+    for each in myfollowers:
+        followingTweets = Tweet.objects.filter(Q(author=request.user) | Q(author=each))
+    
+    print(followingTweets)
+    return render(request, 'home.html', {'tweets': tweets, 'mytweets': mytweets, 'followingTweets': followingTweets})
