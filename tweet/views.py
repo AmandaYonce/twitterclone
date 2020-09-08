@@ -5,11 +5,19 @@ from django.shortcuts import render, HttpResponseRedirect, reverse
 from twitteruser.models import CustomUser
 from notification.models import Notification
 import re
+from django.views.generic import View
 
 
-def NewTweet(request):
-    if request.method == "POST":
-        form = CreateTweetForm(request.POST)
+class NewTweet(View):
+    template_name = 'newtweet.html'
+    form_class = CreateTweetForm
+
+    def get(self, request):
+        form = self.form_class
+        return render(request, self.template_name, {'form': form})
+
+    def post(self, request):
+        form = self.form_class(request.POST)
         if form.is_valid():
             data = form.cleaned_data
             author_inst = CustomUser.objects.filter(username=request.user.username).first()
@@ -30,26 +38,33 @@ def NewTweet(request):
                         the_tweet=new_Tweet
                     )
             return HttpResponseRedirect(reverse('home'))
-    form = CreateTweetForm()
-    return render(request, "newtweet.html", {'form': form})
+        return render(request, self.template_name, {'form': form})
 
 
-def TweetDetail(request, tweet_id):
-    tweet = Tweet.objects.filter(id=tweet_id).first()
-    return render(request, 'tweetdetail.html', {"tweet": tweet})
+class TweetDetail(View):
+    template_name = 'tweetdetail.html'
+
+    def get(self, request, tweet_id):
+        tweet = Tweet.objects.filter(id=tweet_id).first()
+        return render(request, self.template_name, {"tweet": tweet})
 
 
-def AuthorDetail(request, author_id):
-    print(author_id)
-    author = CustomUser.objects.filter(id=author_id).first()
-    count = Tweet.objects.filter(author=author_id).count
-    return render(request, 'authordetail.html', {"author": author, 'count': count})
+class AuthorDetail(View):
+    template_name = 'authordetail.html'
+
+    def get(self, request, author_id):
+        author = CustomUser.objects.filter(id=author_id).first()
+        count = Tweet.objects.filter(author=author_id).count
+        return render(request, self.template_name, {"author": author, 'count': count})
 
 
-def FollowMe(request, author_id):
-    usertofollow = CustomUser.objects.filter(id=author_id).first()
-    usertofollow.following.add(request.user.id)
-    return HttpResponseRedirect(reverse('home'))
+class FollowMe(View):
+    template_name = 'home'
+
+    def get(self, request, author_id):
+        usertofollow = CustomUser.objects.filter(id=author_id).first()
+        usertofollow.following.add(request.user.id)
+        return HttpResponseRedirect(reverse(self.template_name))
 
 
 def UnfollowMe(request, author_id):
